@@ -7,46 +7,109 @@ var expect = chai.expect
     ;
 
 describe('angular.module("app")', function() {
-    beforeEach(module('app'));
+    beforeEach(module('app', 'ngRoute'));
 
-    var $controller,
+    var $compile,
+        $controller,
+        $document,
         $filter,
+        $httpBackend,
+        $injector,
+        $routeParams,
         $rootScope
+        , $scope
+        , $window
+
+
+        , ctrl
+        , mockDoc = angular.element('<html><head></head><body></body></html>')
         ;
 
-    beforeEach(inject(function (_$controller_, _$filter_, _$rootScope_) {
+    beforeEach(function(){
+        module(function($provide) { // надо ли?
+            $provide.value('$document', angular.element(document));
+            $provide.value('$window', angular.element(window));
+        });
+    });
+
+    beforeEach(inject(function(_$document_, _$injector_, _$compile_, _$controller_, _$filter_, _$httpBackend_, _$rootScope_, _$window_){
+        $compile = _$compile_;
         $controller = _$controller_;
+        $document = _$document_;
         $filter = _$filter_;
+        $httpBackend = _$httpBackend_;
+        $injector = _$injector_;
         $rootScope = _$rootScope_;
+        $scope = _$rootScope_.$new();
+        $window = _$window_;
     }));
 
-    describe('App', function(){
-        it('exists | app.route("index") = "#/"', inject(function($controller){
-            var ctrl = $controller('App', {$scope: $rootScope.$new()});
+    function beforeEachCtrl(ctrl_name){
+        beforeEach(function(){
+            $scope = $rootScope.$new();
 
-            expect(ctrl.route('index')).equal('#/');
-            expect(ctrl.title).not.empty;
-        }));
+            ctrl = $controller(ctrl_name, {$scope: $scope});
+        });
+    }
+
+    function createDirective(html, fromRootScope) {
+        if (fromRootScope){
+            // digest from root scope
+            var el = $compile(html)($scope);
+
+            $scope.$apply();
+
+            return el;
+        }
+
+        // digest from current scope and children
+        var compiledElem = $compile(angular.element(html))($scope);
+
+        $scope.$digest();
+
+        return compiledElem;
+    }
+
+    describe('App', function(){
+        it('app.title is String', function(){
+            var app = $controller('App', {$scope: $scope});
+
+            expect(angular.isString(app.title)).be.ok;
+        })
     });
 
     describe('Index', function(){
-        it('.skills is array and not empty', inject(function($controller){
-            var $scope = $rootScope.$new()
-                , ctrl = $controller('Index', {$scope: $scope})
-                ;
+        beforeEachCtrl('Index');
 
-            expect(ctrl.skills).to.be.an('array');
-            expect(ctrl.skills).to.have.length.above(0);
-        }));
+        it('.skills is []', function(){
+            expect(angular.isArray(ctrl.skills)).be.ok;
+        });
+
+        it('.skills.length > 0', function(){
+            expect(ctrl.skills.length > 0).be.ok;
+        });
     });
 
     describe('Contacts', function(){
-        it('phone, email, skype is defined', inject(function($controller){
-            var ctrl = $controller('Contacts', {$scope: $rootScope.$new()});
+        beforeEachCtrl('Contacts');
 
-            expect(ctrl.p).to.be.not.empty;
+        it('vm.p is String', function(){
+            expect(angular.isString(ctrl.p)).be.ok;
+        });
+
+        it('vm.e matches @', function(){
             expect(ctrl.e).to.match(/@/);
-            expect(ctrl.s).to.be.not.empty;
-        }));
+            expect(angular.isString(ctrl.s)).be.ok;
+        });
+
+        it('vm.s is String', function(){
+            expect(angular.isString(ctrl.s)).be.ok;
+        });
+    });
+
+    describe('HighlightActiveMenuItem', function(){
+        it('is fn', function(){
+            expect(angular.isFunction($injector.get('HighlightActiveMenuItem'))).be.ok;
+        });
     });
 });
