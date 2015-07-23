@@ -18,15 +18,14 @@
 
 <header class="head">
     <ul id="head_nav" class="head__nav">
-        <li><a data-ng-href="[[app.route('index')]]">Обо мне</a></li>
-        <li><a data-ng-href="[[app.route('projects')]]">Проекты</a></li>
-        <li><a data-ng-href="[[app.route('contacts')]]">Контакты</a></li>
+        <li><a data-route="index">Обо мне</a></li>
+        <li><a data-route="projects">Проекты</a></li>
+        <li><a data-route="contacts">Контакты</a></li>
     </ul>
 </header>
 
 <div class="content" data-ng-view></div>
 
-<!-- можно обойтись и без jQuery, это просто :) -->
 <script src="/js/vendor/jquery/jquery-2.1.3.min.js"></script>
 <script src="/js/vendor/angular/angular.min.js"></script>
 <script src="/js/vendor/angular/angular-route.min.js"></script>
@@ -34,6 +33,8 @@
 <script src="/js/app/app.js"></script>
 <script src="/js/app/cfg.js"></script>
 <script src="/js/app/ctrl.js"></script>
+<script src="/js/app/services.js"></script>
+<script src="/js/app/directives.js"></script>
 
 <script src="/js/main.js"></script>
 

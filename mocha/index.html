@@ -14,8 +14,11 @@
 <script src="/mocha/mocha.js"></script>
 <script src="/mocha/chai.js"></script>
 <script src="/mocha/sinon-1.15.4.js"></script>
+<script src="/mocha/should.js"></script>
 
-<script>mocha.setup('bdd')</script>
+<script>
+    mocha.setup({ui: 'bdd', ignoreLeaks: false});
+</script>
 
 <script src="/js/vendor/angular/angular.min.js"></script>
 <script src="/js/vendor/angular/angular-route.min.js"></script>
@@ -29,7 +32,7 @@
 
 <!-- include spec files here... -->
 
-<script src="/mocha/spec/app.test.js"></script>
+<script src="/mocha/spec/app.spec.js"></script>
 <!--<script src="/jasmine/spec/app.spec.js"></script>-->
 <script>mocha.run();</script>
 

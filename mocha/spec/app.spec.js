@@ -1,5 +1,10 @@
+/* global chai, expect, assert, should */
+
 var expect = chai.expect
-    , assert = chai.assert;
+    , assert = chai.assert
+    , should = chai.should()
+    , utils = chai.util
+    ;
 
 describe('angular.module("app")', function() {
     beforeEach(module('app'));
@@ -19,7 +24,6 @@ describe('angular.module("app")', function() {
         it('exists | app.route("index") = "#/"', inject(function($controller){
             var ctrl = $controller('App', {$scope: $rootScope.$new()});
 
-            expect(ctrl).is.defined;
             expect(ctrl.route('index')).equal('#/');
             expect(ctrl.title).not.empty;
         }));
@@ -45,5 +49,4 @@ describe('angular.module("app")', function() {
             expect(ctrl.s).to.be.not.empty;
         }));
     });
-
 });

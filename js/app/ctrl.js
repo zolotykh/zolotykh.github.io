@@ -8,72 +8,16 @@
         .controller('App', App)
         .controller('Contacts', Contacts)
         .controller('Index', Index)
-        .controller('Projects', Projects)
+        .controller('Projects', angular.noop)
     ;
 
 
-    App.$inject = ['$location', '$rootScope', '$scope', 'AppRoutes'];
+    App.$inject = ['HighlightActiveMenuItem'];
 
-    function App($location, $rootScope, $scope, AppRoutes){
-        var app = this
-            , routes = AppRoutes.routes
-            , $head_nav_links = $('#head_nav').find('a')
-            ;
-
-        app.title = 'Золотых Александр, web-разработчик';
-
-        app.route = route;
-
-        $rootScope.$applyAsync(true);
-
-        $scope.$on('$routeChangeStart', function(next, current) {
-            //processing(true);
-
-            $head_nav_links.removeClass('active');
-
-            var currentPath = '#' + $location.path()
-                , regEx
-                ;
-
-            angular.forEach($head_nav_links, function(a){
-                regEx = new RegExp('^' + a.hash);
-
-                if (a.hash && regEx.test(currentPath) && a.hash.length <= currentPath.length){
-                    if (("#/" === a.hash && a.hash === currentPath) || "#/" !== a.hash){
-                        return $(a).addClass('active');
-                    }
-                }
-            });
-        });
-
-        //$scope.$on('$routeChangeSuccess', function () {
-        //    processing(false);
-        //});
-
-        //$rootScope.$on('processing', function(event, active){
-        //    processing(active);
-        //});
-        //
-        //
-        //function processing(active){
-        //    app.processing = !!active;
-        //}
-
-        function route(name, options){
-            var path = routes[name];
-
-            if (!path) return '/404';
-
-            path = path.path ? path.path : '/' + name;
-
-            if (angular.isObject(options)){
-                angular.forEach(options, function(v, k){
-                    path = path.replace(':' + k, v);
-                });
-            }
-
-            return '#' + path;
-        }
+    function App(HighlightActiveMenuItem){
+        HighlightActiveMenuItem();
+        
+        this.title = 'Золотых Александр, web-разработчик';
     }
 
     function Contacts(){
@@ -97,6 +41,4 @@
             {name: 'Настройка аналитики', desc: '(Mixpanel, Яндекс.Метрика, Google Analytics)'}
         ];
     }
-
-    function Projects(){}
 })();
