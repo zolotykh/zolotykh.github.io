@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" id="ng-app" data-ng-app="app" data-ng-controller="App as app" data-ng-strict-di>
-<!-- на основной странице использую data-атрибуты, на внутренних нет, по понятным причинам -->
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
@@ -8,7 +7,6 @@
 
     <title data-ng-bind="app.title"></title>
 
-    <!-- можно включить в сборку, не принципиально -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
     <link rel="stylesheet" href="/css/app.css">
 
@@ -26,6 +24,8 @@
 
 <div class="content" data-ng-view></div>
 
+<a href="https://mixpanel.com/f/partner" rel="nofollow"><img src="//cdn.mxpnl.com/site_media/images/partner/badge_light.png" alt="Mobile Analytics" /></a>
+
 <script src="/js/vendor/jquery/jquery-2.1.3.min.js"></script>
 <script src="/js/vendor/angular/angular.min.js"></script>
 <script src="/js/vendor/angular/angular-route.min.js"></script>
@@ -37,7 +37,5 @@
 <script src="/js/app/directives.js"></script>
 
 <script src="/js/main.js"></script>
-
-<!-- минифицированной версии js нет, чтобы можно было посмотреть на код (хотя его тут мало) -->
 </body>
 </html>

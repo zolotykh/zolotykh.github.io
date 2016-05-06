@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>angular.module('app')</title>
-    <link rel="stylesheet" media="all" href="/mocha/mocha.css">
+    <link rel="stylesheet" media="all" href="mocha.css">
 </head>
 <body>
 
@@ -11,10 +11,10 @@
 <div id="messages"></div>
 <div id="fixtures"></div>
 
-<script src="/mocha/mocha.js"></script>
-<script src="/mocha/chai.js"></script>
-<script src="/mocha/sinon-1.15.4.js"></script>
-<!--<script src="/mocha/should.js"></script>-->
+<script src="mocha.js"></script>
+<script src="chai.js"></script>
+<script src="sinon-1.15.4.js"></script>
+<!--<script src="should.js"></script>-->
 
 <script>
     mocha.setup({ui: 'bdd', ignoreLeaks: false});
@@ -34,7 +34,7 @@
 
 <!-- include spec files here... -->
 
-<script src="/mocha/spec/app.spec.js"></script>
+<script src="spec/app.spec.js"></script>
 <!--<script src="/jasmine/spec/app.spec.js"></script>-->
 <script>mocha.run();</script>
 

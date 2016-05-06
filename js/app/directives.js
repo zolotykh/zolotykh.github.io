@@ -4,8 +4,20 @@
     'use strict';
 
     angular.module('app')
+        .directive('link', link)
         .directive('route', route)
     ;
+
+    function link(){
+        return {
+            restrict: 'A'
+            , replace: false
+            , scope: {}
+            , link: function($scope, el, attr){
+                el.attr('href', attr.link).html(attr.link.replace(/https?:\/\//, ''));
+            }
+        };
+    }
 
     route.$inject = ['AppRoutes'];
 
